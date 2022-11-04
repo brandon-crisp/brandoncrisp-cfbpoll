@@ -1,0 +1,29 @@
+{
+	"name": "brandoncrisp-cfbpoll",
+	"version": "0.0.1",
+	"description": "The system that runs Brandon Crisp's specific College Football polling system.",
+	"engines": {
+		"node": "16.x"
+	},
+	"private": true,
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js --watch app.js --watch routes --watch utils"
+	},
+	"keywords": [],
+	"contributors": [
+		{
+			"name": "Brandon Crisp",
+			"email": "bcrisp@gournayconsulting.com",
+			"url": "https://gournay.consulting"
+		}
+	],
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"express": "^4.17.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	}
+}
