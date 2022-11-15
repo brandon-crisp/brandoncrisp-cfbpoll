@@ -38,7 +38,7 @@ router.get('/teamRecords', async (req, res) => {
                     'Authorization': `Bearer ${apiKey}`
                 }
             });
-            teamRecords.push(`${team}|${teamRecord.data[0]?.total.games}|${teamRecord.data[0]?.total.wins}|${teamRecord.data[0]?.total.losses}`);
+            teamRecords.push(`${teamRecord.data[0]?.total.games}|${teamRecord.data[0]?.total.wins}|${teamRecord.data[0]?.total.losses}`);
         }
 
         return res.status(200).send({
