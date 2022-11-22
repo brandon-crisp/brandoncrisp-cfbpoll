@@ -52,6 +52,46 @@ router.get('/teamRecords', async (req, res) => {
     }
 });
 
+router.get('/rankings', async (req, res) => {
+
+    // Pull week off of query string
+    const { week } = req.query;
+
+    try {
+
+        // Getting the rankings for the week, and then putting the rankings into an array in the same order as the teams.json file.
+        const rankings = await Axios.get(`${mainURL}/rankings?year=${currentYear}&week=${week}`, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+
+        const apPoll = rankings.data[0].polls.filter(data => data.poll === 'AP Top 25')[0].ranks;
+
+        let apRankingsArray = [];
+
+        for (let i = 0; i < allTeams.length; i++) {
+            const team = allTeams[i];
+            const teamRanking = apPoll.filter(data => data.school === team);
+            // If undefined, then the team is not ranked, and we will put a 0 in the array.
+            if (teamRanking[0] === undefined) {
+                apRankingsArray.push(0);
+            } else {
+                apRankingsArray.push(teamRanking[0].points);
+            }
+        }
+
+        return res.status(200).send({
+            rankings: apRankingsArray,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            status: 'error',
+            data: error.message
+        });
+    }
+});
+
 router.get('/points', async (req, res) => {
     try {
 
